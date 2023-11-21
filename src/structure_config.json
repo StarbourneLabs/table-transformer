@@ -1,9 +1,9 @@
 {
     "lr":5e-5,
     "lr_backbone":1e-5,
-    "batch_size":2,
-    "weight_decay":1e-4,
-    "epochs":20,
+    "batch_size": 5,
+    "weight_decay": 1e-4,
+    "epochs":100,
     "lr_drop":1,
     "lr_gamma":0.9,
     "clip_max_norm":0.1,

@@ -126,6 +126,8 @@ def get_data(args):
                                        image_extension=".jpg",
                                        xml_fileset="val_filelist.txt",
                                        class_map=class_map)
+        
+        print('len datasets ==> ', len(dataset_train), len(dataset_val))
 
         sampler_train = torch.utils.data.RandomSampler(dataset_train)
         sampler_val = torch.utils.data.SequentialSampler(dataset_val)

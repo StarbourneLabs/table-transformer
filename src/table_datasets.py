@@ -530,7 +530,8 @@ class PDFTablesDataset(torch.utils.data.Dataset):
         except:
             lines = os.listdir(image_directory)
         png_page_ids = set([f.strip().replace(self.image_extension, "") for f in lines if f.strip().endswith(self.image_extension)])
-        
+        print('LINES =>', lines) 
+        print('PNG PAGE IDS =>', png_page_ids) 
         self.page_ids = sorted(xml_page_ids.intersection(png_page_ids))
         if not max_size is None:
             random.shuffle(self.page_ids)
@@ -550,13 +551,18 @@ class PDFTablesDataset(torch.utils.data.Dataset):
         
         self.has_mask = False
         
+        print('make coco?? ', self.make_coco)
+
         if self.make_coco:
             self.dataset = {}
             self.dataset['images'] = [{'id': idx} for idx, _ in enumerate(self.page_ids)]
             self.dataset['annotations'] = []
             ann_id = 0
+            print('enumerating: ', len(self.page_ids))
             for image_id, page_id in enumerate(self.page_ids):
+                print('iterating...', image_id, page_id)
                 annot_path = os.path.join(self.root, page_id + ".xml")
+                print('anon path =>', annot_path) 
                 bboxes, labels = read_pascal_voc(annot_path, class_map=self.class_map)
 
                 # Reduce class set

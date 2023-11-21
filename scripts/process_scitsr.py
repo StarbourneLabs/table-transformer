@@ -1418,8 +1418,10 @@ def main():
 
     structure_filepaths = [os.path.join(data_directory, "train", "structure", elem) for elem in train_structure_files]
     structure_filepaths += [os.path.join(data_directory, "test", "structure", elem) for elem in test_structure_files]
-
-    with open(os.path.join(data_directory, "train", "structure", structure_filepaths[1]), 'r') as infile:
+    
+    print('opening file: ', structure_filepaths[1])
+    # with open(os.path.join(data_directory, "train", "structure", structure_filepaths[1]), 'r') as infile:
+    with open(structure_filepaths[1], 'r') as infile:
         data = json.load(infile)
 
     splits_by_filepath = dict()
@@ -1454,7 +1456,8 @@ def main():
         split = splits_by_filepath[structure_filepath]
 
         try:
-            with open(os.path.join(data_directory, "train", "structure", structure_filepath), 'r') as infile:
+            # with open(os.path.join(data_directory, "train", "structure", structure_filepath), 'r') as infile:
+            with open(structure_filepath) as infile:
                 data = json.load(infile)
             data['cells'] = sorted(sorted(data['cells'], key=lambda x: x['start_col']), key=lambda x: x['start_row'])
             table_dict = create_table_dict(data)
